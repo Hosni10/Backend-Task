@@ -1,8 +1,12 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
+import { config } from "dotenv";
+config()
 
-export const dbConnection = function(){
-    mongoose.connect('mongodb://127.0.0.1:27018/task')
-   .then(() => console.log('Connected to Database')).catch((err)=>{
-    console.log('Failed to connect to Database:', err)
-   })
+export function dbConnection() {
+  mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => console.log("Connected to Database"))
+    .catch((err) => {
+      console.log("Failed to connect to Database:", err);
+    });
 }
