@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const urlSchema = mongoose.Schema({
-  originalUrl: String,
+  originalUrl: { type: String, required: true },
   smallid: {
     type: String,
     required: true,
@@ -13,7 +13,13 @@ const urlSchema = mongoose.Schema({
   },
   expiresAt: {
     type: Date,
+    required: false,
   },
+  numberOfVisits:{
+    type: Number,
+    default: 0,
+    required: false,
+  }
 });
 
 export const Url = mongoose.model("Url", urlSchema);
