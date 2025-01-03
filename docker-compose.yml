@@ -1,0 +1,34 @@
+version: '3.0'
+
+volumes:
+  mongo_data:
+  redis_data:
+
+services:
+  mongo_db:
+    image: mongo:latest
+    ports:
+      - 9999:27017
+    restart: always
+    volumes: 
+    - mongo_data:/data/db/
+  redis_server:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    restart: always
+    volumes: 
+    - redis_data:/data
+  api:
+    build: .
+    ports:
+      - 6000:9000
+    restart: always
+    depends_on:
+      - mongo_db
+    environment:
+      - PORT=9000
+      - MONGO_URI=mongodb://mongo_db:27017/task
+      - REDIS_TTL=3600
+      - REDIS_URL=redis://redis_server:6379
+
