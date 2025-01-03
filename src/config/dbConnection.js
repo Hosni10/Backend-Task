@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import env from "./env.js";
 
+console.log("hosny", env.dbUrl);
+
 export function dbConnection() {
   mongoose
     .connect(env.dbUrl)
